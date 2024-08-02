@@ -1,0 +1,109 @@
+.trackInfo {
+  background-color: #1e1e1e;
+  color: #fff;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001;
+  transition: all 0.3s ease-in-out;
+  box-sizing: border-box;
+}
+
+.trackInfo.minimized {
+  height: 100px;
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.minimizedText {
+  font-size: 1rem;
+  color: #fff;
+  text-align: center;
+  margin: 0;
+}
+
+.trackTitle {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.trackArtist {
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #ccc;
+}
+
+.albumInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.albumImage {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
+
+.spotifyLink {
+  color: #1db954;
+  text-decoration: none;
+  margin-top: 10px;
+}
+
+.audioPlayer {
+  width: 100%;
+  outline: none;
+}
+
+.trackError {
+  text-align: center;
+  margin: 0;
+  font-size: 16px;
+  color: #d15d5d;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.trackInfo.minimized .audioPlayer {
+  width: calc(100% - 20px);
+  height: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.trackInfo.minimized .closeButton {
+  position: initial;
+}
+
+@media (max-width: 768px) {
+  .trackInfo {
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    transform: none;
+    border-radius: 10px 10px 0 0;
+    height: 100vh;
+  }
+
+  .trackInfo.minimized {
+    height: auto;
+  }
+}

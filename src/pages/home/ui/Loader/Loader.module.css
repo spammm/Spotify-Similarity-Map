@@ -1,0 +1,92 @@
+.loaderContainer {
+  perspective: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.text {
+  position: fixed;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  opacity: 0.5;
+}
+.planet {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #34568b 0%, #041e42 70%);
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+  animation: spinPlanet 8s linear infinite;
+}
+
+.record {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, #444444 0%, #111111 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: spinRecord 4s linear infinite reverse;
+}
+
+p {
+  margin-top: 20px;
+  font-size: 1.5rem;
+}
+
+@keyframes spinPlanet {
+  0% {
+    transform: rotateX(25deg) rotateY(0deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(25deg) rotateY(360deg) rotateZ(0deg);
+  }
+}
+
+@keyframes spinRecord {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .planet {
+    width: 150px;
+    height: 150px;
+  }
+
+  .record {
+    width: 75px;
+    height: 75px;
+  }
+
+  p {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .planet {
+    width: 100px;
+    height: 100px;
+  }
+
+  .record {
+    width: 50px;
+    height: 50px;
+  }
+
+  p {
+    font-size: 1rem;
+  }
+}

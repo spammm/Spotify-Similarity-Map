@@ -1,0 +1,64 @@
+.main {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+  margin: 0;
+  position: relative;
+}
+
+.intro {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+.header h1 {
+  margin: 0; /* Убираем лишние отступы */
+  padding: 0;
+}
+.header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.button {
+  background-color: #1c2e22;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  align-self: flex-start;
+  margin: 10px;
+}
+
+.button:hover {
+  background-color: rgb(74, 82, 77);
+}
+
+.contentWrapper {
+  display: flex;
+  flex: 1;
+  height: calc(100% - 60px);
+}
+
+.scrollable {
+  flex: 1;
+  overflow-y: auto;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1c1c1c;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 10px;
+}
