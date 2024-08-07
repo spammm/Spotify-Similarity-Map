@@ -1,8 +1,20 @@
+import { SPOTIFY_TOKEN_URL, SPOTIFY_API_URL, TOKEN_EXPIRY_KEY, TOKEN_KEY } from '../config';
+
 const client_id = import.meta.env.VITE_SPOTIFY_CLIENT_ID;
 const client_secret = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET;
-let accessToken = '';
 
-export const getAccessToken = async () => {
+export const getAccessToken = async (): Promise<string | null> => {
+  const currentTime = Date.now();
+  const storedToken = localStorage.getItem(TOKEN_KEY);
+  const storedTokenExpiry = localStorage.getItem(TOKEN_EXPIRY_KEY);
+  if (
+    storedToken &&
+    storedTokenExpiry &&
+    currentTime < parseInt(storedTokenExpiry)
+  ) {
+    return storedToken;
+  }
+
   const authOptions = {
     method: 'POST',
     headers: {
@@ -16,39 +28,51 @@ export const getAccessToken = async () => {
   };
 
   try {
-    const response = await fetch(
-      'https://accounts.spotify.com/api/token',
-      authOptions
-    );
+    const response = await fetch(SPOTIFY_TOKEN_URL, authOptions);
     const data = await response.json();
-    accessToken = data.access_token;
-    return accessToken;
+    const accessToken = data.access_token;
+    const expiresIn = data.expires_in;
+
+    if (accessToken) {
+      localStorage.setItem(TOKEN_KEY, accessToken);
+      localStorage.setItem(
+        TOKEN_EXPIRY_KEY,
+        (currentTime + expiresIn * 1000).toString()
+      );
+      return accessToken;
+    }
+
+    return null;
   } catch (error) {
     console.error('Error getting Spotify access token', error);
+    return null;
   }
 };
 
 export const getTrackByISRC = async (isrc: string) => {
+  const accessToken = await getAccessToken();
+
   if (!accessToken) {
-    await getAccessToken();
+    console.error('No access token available');
+    return null;
   }
 
   const searchOptions = {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${accessToken}`,
-      'Accept-Language': 'en-US', // Подменяем заголовок для русских браузеров
+      'Accept-Language': 'en-US',
     },
   };
+
   try {
     const response = await fetch(
-      `https://api.spotify.com/v1/search?type=track&q=isrc:${isrc}`,
+      `${SPOTIFY_API_URL}/search?type=track&q=isrc:${isrc}`,
       searchOptions
     );
     const data = await response.json();
 
     if (data.tracks && data.tracks.items.length > 0) {
-      // console.log('Track data:', data.tracks.items[0]);
       return data.tracks.items[0];
     } else {
       console.error('No track found for ISRC:', isrc);

@@ -3,6 +3,7 @@ import { calculateSimilarity } from '../../../shared/lib';
 import { getVisibleSongs } from '../processing/canvasUtils';
 import { compareFields as originalCompareFields } from '../../../shared/config';
 import { ClusteredSong } from '../../../shared/providers';
+import { truncateText } from './../../../shared/lib/textUtils/truncateText';
 
 export const renderCanvasContent = (
   canvas: Canvas,
@@ -36,7 +37,7 @@ export const renderCanvasContent = (
       }),
     });
 
-    const text = new IText(song.Track.substring(0, 25), {
+    const text = new IText(truncateText(song.Track, 25), {
       left: song.x,
       top: song.y - radius - 10,
       fill: 'white',

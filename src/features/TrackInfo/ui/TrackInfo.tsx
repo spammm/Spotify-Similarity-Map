@@ -3,6 +3,7 @@ import { TrackData } from '../models/TrackInfoTypes';
 import { getTrackByISRC } from '../../../shared/api';
 import { ClusteredSong } from '../../../shared/providers';
 import styles from './TrackInfo.module.css';
+import { declension } from './../../../shared/lib/textUtils/declension';
 
 interface TrackInfoProps {
   song: ClusteredSong;
@@ -63,7 +64,12 @@ export const TrackInfo: React.FC<TrackInfoProps> = ({ song }) => {
               />
               <p>{trackData.album.name}</p>
               <p>{trackData.album.release_date}</p>
-              <p>{trackData.album.total_tracks} треков</p>
+              <p>
+                {`${trackData.album.total_tracks} ${declension(
+                  trackData.album.total_tracks,
+                  ['трек', 'трека', 'треков']
+                )}`}
+              </p>
               <a
                 href={trackData.external_urls.spotify}
                 target="_blank"

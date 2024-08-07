@@ -1,4 +1,4 @@
-import { Song } from "../../../lib";
+import { Song } from '../../../lib';
 
 export const createClusterLength = () => {
   const clusterSizes: Record<number, number> = {};
@@ -49,7 +49,7 @@ export const distributeSongsAcrossClusters = (
     const clusterSize = clusterLength(clusters, cluster);
 
     const angle = (index % clusterSize) * ((2 * Math.PI) / clusterSize);
-    const minDistance = 20;
+    const minDistance = 30;
     const radiusStep = Math.max(
       (clusterCenter.radius - minDistance) / clusterSize,
       minDistance
